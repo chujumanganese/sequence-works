@@ -1,0 +1,2030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Mono:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link rel="stylesheet" href="/index.css" />
+</head>
+<body>
+    <!-- ============================================================
+                    DEPOSIT SCREEN
+    ============================================================ -->
+    <div class="screen" id="depositScreen">
+      <div class="topbar">
+        <div class="back-btn" onclick="go('homeScreen')">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#94a3b8"
+            stroke-width="2"
+          >
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </div>
+        <span class="page-title" id="depTitle">Deposit crypto</span>
+      </div>
+      <div class="stepbar">
+        <div class="stp idle" id="ds1">
+          <span class="snum">1</span><span class="slbl">Coin</span>
+        </div>
+        <div class="sline" id="dl1"></div>
+        <div class="stp idle" id="ds2">
+          <span class="snum">2</span><span class="slbl">Network</span>
+        </div>
+        <div class="sline" id="dl2"></div>
+        <div class="stp idle" id="ds3">
+          <span class="snum">3</span><span class="slbl">Address</span>
+        </div>
+      </div>
+      <div class="scbody" id="depBody"></div>
+    </div>
+
+    <!-- ============================================================
+     BUY CRYPTO SCREEN
+============================================================ -->
+    <div class="screen" id="buyScreen">
+      <div class="topbar">
+        <div class="back-btn" onclick="go('homeScreen')">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#94a3b8"
+            stroke-width="2"
+          >
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </div>
+        <span class="page-title">Buy crypto</span>
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            color: var(--muted);
+          "
+        >
+          Powered by <span class="moonbadge">MoonPay</span>
+        </div>
+      </div>
+      <div class="scbody" id="buyBody"></div>
+    </div>
+
+    <!-- ============================================================
+     KYC SCREEN
+============================================================ -->
+    <div class="screen" id="kycScreen">
+      <div class="topbar">
+        <div class="back-btn" onclick="go('homeScreen')">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#94a3b8"
+            stroke-width="2"
+          >
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </div>
+        <span class="page-title">Identity verification</span>
+      </div>
+      <div class="stepbar">
+        <div class="stp idle" id="ks1">
+          <span class="snum">1</span><span class="slbl">ID</span>
+        </div>
+        <div class="sline" id="kl1"></div>
+        <div class="stp idle" id="ks2">
+          <span class="snum">2</span><span class="slbl">Video</span>
+        </div>
+        <div class="sline" id="kl2"></div>
+        <div class="stp idle" id="ks3">
+          <span class="snum">3</span><span class="slbl">Review</span>
+        </div>
+      </div>
+      <div class="scbody" id="kycBody"></div>
+    </div>
+    <!-- ============================================================
+     HOME / PORTFOLIO SCREEN
+============================================================ -->
+    <div class="screen active" id="homeScreen">
+      <div class="topbar">
+        <div>
+          <div style="font-size: 12px; color: var(--muted)">Welcome back</div>
+          <div style="font-size: 16px; font-weight: 600" id="homeUser">
+            <%= username %>
+          </div>
+        </div>
+        <div
+          style="
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+          "
+        >
+          <!-- NOTIFICATION BELL -->
+          <div style="position: relative">
+            <div class="topico" id="notifBtn" onclick="toggleNotif()">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#94a3b8"
+                stroke-width="1.5"
+              >
+                <path
+                  d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"
+                />
+              </svg>
+              <span class="notif-dot" id="notifDot"></span>
+            </div>
+          </div>
+          <!-- CHAT ICON -->
+          <div class="topico" onclick="openChat()">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#94a3b8"
+              stroke-width="1.5"
+            >
+              <path
+                d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- NOTIFICATION PANEL -->
+      <div
+        id="notifPanel"
+        style="
+          display: none;
+          position: fixed;
+          top: 68px;
+          right: 10px;
+          width: 320px;
+          max-width: calc(100vw - 20px);
+          background: var(--surface);
+          border: 1.5px solid var(--border);
+          border-radius: 18px;
+          z-index: 100;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+          overflow: hidden;
+        "
+      >
+        <div
+          style="
+            padding: 16px 18px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          "
+        >
+          <span style="font-size: 15px; font-weight: 700">Notifications</span>
+          <span
+            style="
+              font-size: 12px;
+              color: var(--accent);
+              cursor: pointer;
+              font-weight: 500;
+            "
+            onclick="markAllRead()"
+            >Mark all read</span
+          >
+        </div>
+        <div
+          id="notifList"
+          style="max-height: 380px; overflow-y: auto; padding: 8px"
+        ></div>
+      </div>
+
+      <!-- CHAT WIDGET -->
+      <div
+        id="chatWidget"
+        style="
+          display: none;
+          position: fixed;
+          bottom: 90px;
+          right: 10px;
+          width: 320px;
+          max-width: calc(100vw - 20px);
+          background: var(--surface);
+          border: 1.5px solid var(--border);
+          border-radius: 18px;
+          z-index: 100;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+          overflow: hidden;
+          flex-direction: column;
+        "
+      >
+        <div
+          style="
+            padding: 14px 16px;
+            background: linear-gradient(135deg, #0d2137, #0a1628);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+          "
+        >
+          <div
+            style="
+              width: 36px;
+              height: 36px;
+              border-radius: 50%;
+              background: var(--accent);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-shrink: 0;
+            "
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#0a0e1a"
+              stroke-width="2"
+            >
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+          </div>
+          <div style="flex: 1">
+            <div style="font-size: 14px; font-weight: 700">
+              NexVault Support
+            </div>
+            <div style="font-size: 11px; color: var(--accent)">
+              ● Online · Typically replies in minutes
+            </div>
+          </div>
+          <div
+            onclick="closeChat()"
+            style="cursor: pointer; color: var(--muted); padding: 4px"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#64748b"
+              stroke-width="2"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </div>
+        </div>
+        <div
+          id="chatMessages"
+          style="
+            height: 280px;
+            overflow-y: auto;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+          "
+        ></div>
+        <div
+          style="
+            padding: 10px 12px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 8px;
+            align-items: center;
+          "
+        >
+          <input
+            id="chatInput"
+            class="finput noi"
+            type="text"
+            placeholder="Type a message..."
+            style="flex: 1; padding: 10px 12px; font-size: 13px"
+            onkeydown="if (event.key === 'Enter') sendChat();"
+          />
+          <button
+            onclick="sendChat()"
+            style="
+              width: 36px;
+              height: 36px;
+              border-radius: 10px;
+              background: var(--accent);
+              border: none;
+              cursor: pointer;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-shrink: 0;
+            "
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#0a0e1a"
+              stroke-width="2.5"
+            >
+              <line x1="22" y1="2" x2="11" y2="13" />
+              <polygon points="22 2 15 22 11 13 2 9 22 2" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- CHAT FAB (floating button on all screens) -->
+      <div
+        id="chatFab"
+        onclick="openChat()"
+        style="
+          display: none;
+          position: fixed;
+          bottom: 90px;
+          right: 14px;
+          width: 52px;
+          height: 52px;
+          border-radius: 50%;
+          background: var(--accent);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          box-shadow: 0 8px 24px rgba(0, 212, 170, 0.35);
+          z-index: 99;
+        "
+      >
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#0a0e1a"
+          stroke-width="2"
+        >
+          <path
+            d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+          />
+        </svg>
+      </div>
+      <div class="scbody">
+        <!-- WELCOME BONUS BANNER (shown once) -->
+        <div
+          id="bonusBanner"
+          style="
+            display: none;
+            background: linear-gradient(
+              135deg,
+              rgba(0, 212, 170, 0.12),
+              rgba(59, 130, 246, 0.1)
+            );
+            border: 1px solid rgba(0, 212, 170, 0.3);
+            border-radius: 16px;
+            padding: 16px 18px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+          "
+        >
+          <div style="font-size: 28px; flex-shrink: 0">🎉</div>
+          <div>
+            <div
+              style="
+                font-size: 14px;
+                font-weight: 700;
+                color: var(--accent);
+                margin-bottom: 3px;
+              "
+            >
+              Welcome Bonus Activated!
+            </div>
+            <div style="font-size: 12px; color: var(--muted); line-height: 1.6">
+              You have received a
+              <strong style="color: var(--text)">$1,000</strong> welcome bonus.
+              It grows daily — reach
+              <strong style="color: var(--text)">$10,000</strong> to unlock
+              withdrawal.
+            </div>
+          </div>
+        </div>
+
+        <!-- MAIN BALANCE CARD -->
+        <div class="hcard">
+          <div class="ballabel">TOTAL PORTFOLIO VALUE</div>
+          <div class="balval">
+            <span>$</span><span id="dashBalance">1,000.00</span>
+          </div>
+          <div class="changerow">
+            <span class="chgbadge" id="dashDailyPct">+0.50%</span>
+            <span class="chgtxt" id="dashDailyAmt">+$5.00 today</span>
+          </div>
+          <!-- PROGRESS BAR TO $10,000 -->
+          <div style="margin-top: 18px">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 7px;
+              "
+            >
+              <span
+                style="font-size: 11px; color: var(--muted); font-weight: 500"
+                >Progress to withdrawal</span
+              >
+              <span
+                style="font-size: 11px; font-weight: 700; color: var(--accent)"
+                id="dashPct"
+                >10.00%</span
+              >
+            </div>
+            <div
+              style="
+                background: rgba(255, 255, 255, 0.06);
+                border-radius: 99px;
+                height: 8px;
+                overflow: hidden;
+              "
+            >
+              <div
+                id="dashBar"
+                style="
+                  height: 100%;
+                  border-radius: 99px;
+                  background: linear-gradient(90deg, #00d4aa, #3b82f6);
+                  transition: width 0.6s ease;
+                  width: 10%;
+                "
+              ></div>
+            </div>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                margin-top: 6px;
+              "
+            >
+              <span style="font-size: 11px; color: var(--muted)"
+                >$<span id="dashCurrent">1,000</span></span
+              >
+              <span style="font-size: 11px; color: var(--muted)"
+                >Goal: $10,000</span
+              >
+            </div>
+          </div>
+          <div class="vbar" style="margin-top: 14px" onclick="goKYC()">
+            <div class="vleft">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+              Identity verification pending
+            </div>
+            <span class="vcta">Verify →</span>
+          </div>
+        </div>
+
+        <!-- GROWTH STATS ROW -->
+        <div
+          style="
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+          "
+        >
+          <div
+            style="
+              background: var(--card);
+              border: 1px solid var(--border);
+              border-radius: 14px;
+              padding: 14px;
+              text-align: center;
+            "
+          >
+            <div
+              style="font-size: 11px; color: var(--muted); margin-bottom: 5px"
+            >
+              Daily Rate
+            </div>
+            <div
+              style="font-size: 16px; font-weight: 700; color: var(--accent)"
+              id="statRate"
+            >
+              0.50%
+            </div>
+          </div>
+          <div
+            style="
+              background: var(--card);
+              border: 1px solid var(--border);
+              border-radius: 14px;
+              padding: 14px;
+              text-align: center;
+            "
+          >
+            <div
+              style="font-size: 11px; color: var(--muted); margin-bottom: 5px"
+            >
+              Days Active
+            </div>
+            <div
+              style="font-size: 16px; font-weight: 700; color: var(--text)"
+              id="statDays"
+            >
+              0
+            </div>
+          </div>
+          <div
+            style="
+              background: var(--card);
+              border: 1px solid var(--border);
+              border-radius: 14px;
+              padding: 14px;
+              text-align: center;
+            "
+          >
+            <div
+              style="font-size: 11px; color: var(--muted); margin-bottom: 5px"
+            >
+              Total Earned
+            </div>
+            <div
+              style="font-size: 16px; font-weight: 700; color: var(--green)"
+              id="statEarned"
+            >
+              $0.00
+            </div>
+          </div>
+        </div>
+
+        <!-- DEPOSIT BOOST CARD -->
+        <div
+          style="
+            background: linear-gradient(135deg, #0d2137, #0a1628);
+            border: 1px solid #1e3a5f;
+            border-radius: 16px;
+            padding: 16px 18px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+          "
+          onclick="goDeposit()"
+        >
+          <div
+            style="
+              width: 44px;
+              height: 44px;
+              border-radius: 12px;
+              background: rgba(0, 212, 170, 0.1);
+              border: 1px solid rgba(0, 212, 170, 0.3);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-shrink: 0;
+            "
+          >
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#00d4aa"
+              stroke-width="2"
+            >
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <polyline points="19 12 12 5 5 12" />
+            </svg>
+          </div>
+          <div style="flex: 1">
+            <div style="font-size: 14px; font-weight: 700; margin-bottom: 3px">
+              Boost your growth
+            </div>
+            <div style="font-size: 12px; color: var(--muted); line-height: 1.5">
+              Deposit crypto to increase your daily growth rate and reach
+              $10,000 faster.
+            </div>
+          </div>
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#64748b"
+            stroke-width="2"
+          >
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </div>
+
+        <!-- ACTION BUTTONS -->
+        <div class="actgrid">
+          <div class="actbtn" onclick="goDeposit()">
+            <div class="actico g">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#00d4aa"
+                stroke-width="2"
+              >
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <polyline points="19 12 12 5 5 12" />
+              </svg>
+            </div>
+            <span class="actlbl">Deposit</span>
+          </div>
+          <div class="actbtn" onclick="goWithdraw()">
+            <div class="actico">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#94a3b8"
+                stroke-width="2"
+              >
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <polyline points="5 12 12 19 19 12" />
+              </svg>
+            </div>
+            <span class="actlbl">Withdraw</span>
+          </div>
+          <div class="actbtn">
+            <div class="actico b">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#3b82f6"
+                stroke-width="2"
+              >
+                <path
+                  d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"
+                />
+                <path
+                  d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"
+                />
+              </svg>
+            </div>
+            <span class="actlbl">Link Wallet</span>
+          </div>
+          <div class="actbtn" onclick="goBuy()">
+            <div class="actico">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#94a3b8"
+                stroke-width="2"
+              >
+                <rect x="1" y="4" width="22" height="16" rx="2" />
+                <line x1="1" y1="10" x2="23" y2="10" />
+              </svg>
+            </div>
+            <span class="actlbl">Buy Crypto</span>
+          </div>
+          <div class="actbtn">
+            <div class="actico">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#94a3b8"
+                stroke-width="2"
+              >
+                <polyline points="17 1 21 5 17 9" />
+                <path d="M3 11V9a4 4 0 0 1 4-4h14" />
+                <polyline points="7 23 3 19 7 15" />
+                <path d="M21 13v2a4 4 0 0 1-4 4H3" />
+              </svg>
+            </div>
+            <span class="actlbl">Swap</span>
+          </div>
+        </div>
+
+        <!-- INVESTMENT HISTORY -->
+        <div class="sechdr">
+          <span class="sectitle">Recent growth</span
+          ><span class="seclink">View all</span>
+        </div>
+        <div
+          id="historyList"
+          style="
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 24px;
+          "
+        ></div>
+      </div>
+      <div class="botnav">
+        <div class="nvi on">
+          <svg viewBox="0 0 24 24">
+            <rect x="3" y="3" width="7" height="7" rx="1" />
+            <rect x="14" y="3" width="7" height="7" rx="1" />
+            <rect x="3" y="14" width="7" height="7" rx="1" />
+            <rect x="14" y="14" width="7" height="7" rx="1" /></svg
+          ><span class="nvlbl">Portfolio</span><span class="nvdot"></span>
+        </div>
+        <div class="nvi" onclick="goTrade()">
+          <svg viewBox="0 0 24 24">
+            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+            <polyline points="16 7 22 7 22 13" /></svg
+          ><span class="nvlbl">Trade</span><span class="nvdot"></span>
+        </div>
+        <div class="nvi" onclick="goWithdraw()">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="12" />
+            <line x1="12" y1="16" x2="12.01" y2="16" /></svg
+          ><span class="nvlbl">Withdraw</span><span class="nvdot"></span>
+        </div>
+        <div class="nvi" onclick="goAccount()">
+          <svg viewBox="0 0 24 24">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" /></svg
+          ><span class="nvlbl">Account</span><span class="nvdot"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+     TRADE / CHART SCREEN
+============================================================ -->
+    <div class="screen" id="tradeScreen">
+      <div class="topbar">
+        <div class="back-btn" onclick="go('homeScreen')">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#94a3b8"
+            stroke-width="2"
+          >
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </div>
+        <span class="page-title">Markets</span>
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-left: auto;
+            font-size: 11px;
+            color: var(--muted);
+          "
+        >
+          <span
+            style="
+              width: 7px;
+              height: 7px;
+              border-radius: 50%;
+              background: #22c55e;
+              display: inline-block;
+              animation: pulse 1.5s infinite;
+            "
+          ></span
+          >Live
+        </div>
+      </div>
+      <div class="scbody" style="padding: 0">
+        <!-- COIN SELECTOR TABS -->
+        <div
+          id="chartCoinTabs"
+          style="
+            display: flex;
+            gap: 0;
+            overflow-x: auto;
+            padding: 0 16px 0;
+            border-bottom: 1px solid var(--border);
+            scrollbar-width: none;
+          "
+        ></div>
+
+        <!-- PRICE HEADER -->
+        <div style="padding: 18px 20px 0">
+          <div
+            style="
+              display: flex;
+              align-items: flex-end;
+              gap: 12px;
+              margin-bottom: 4px;
+            "
+          >
+            <div
+              style="
+                font-family: &quot;Space Mono&quot;, monospace;
+                font-size: 28px;
+                font-weight: 700;
+              "
+              id="chartPrice"
+            >
+              $97,650.00
+            </div>
+            <div
+              id="chartChangeBadge"
+              style="
+                padding: 4px 10px;
+                border-radius: 8px;
+                font-size: 13px;
+                font-weight: 600;
+                margin-bottom: 4px;
+                background: rgba(34, 197, 94, 0.12);
+                color: #22c55e;
+              "
+            >
+              +2.41%
+            </div>
+          </div>
+          <div style="font-size: 12px; color: var(--muted)" id="chartChangeAmt">
+            +$2,302.18 today
+          </div>
+        </div>
+
+        <!-- TIMEFRAME TABS -->
+        <div style="display: flex; gap: 4px; padding: 14px 20px 10px">
+          <button class="tf-btn on" onclick="setTF(this, '1H')">1H</button>
+          <button class="tf-btn" onclick="setTF(this, '4H')">4H</button>
+          <button class="tf-btn" onclick="setTF(this, '1D')">1D</button>
+          <button class="tf-btn" onclick="setTF(this, '1W')">1W</button>
+          <button class="tf-btn" onclick="setTF(this, '1M')">1M</button>
+        </div>
+
+        <!-- CHART CANVAS -->
+        <div style="padding: 0 20px; position: relative">
+          <canvas
+            id="priceChart"
+            style="width: 100%; height: 220px; display: block"
+          ></canvas>
+        </div>
+
+        <!-- STATS ROW -->
+        <div
+          style="
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            margin-top: 12px;
+          "
+        >
+          <div
+            style="
+              padding: 14px 0 14px 16px;
+              border-right: 1px solid var(--border);
+            "
+          >
+            <div
+              style="
+                font-size: 10px;
+                color: var(--muted);
+                margin-bottom: 4px;
+                font-weight: 500;
+              "
+            >
+              OPEN
+            </div>
+            <div
+              style="
+                font-size: 13px;
+                font-weight: 700;
+                font-family: &quot;Space Mono&quot;, monospace;
+              "
+              id="statOpen"
+            >
+              95,348
+            </div>
+          </div>
+          <div
+            style="padding: 14px 12px; border-right: 1px solid var(--border)"
+          >
+            <div
+              style="
+                font-size: 10px;
+                color: var(--muted);
+                margin-bottom: 4px;
+                font-weight: 500;
+              "
+            >
+              HIGH
+            </div>
+            <div
+              style="
+                font-size: 13px;
+                font-weight: 700;
+                font-family: &quot;Space Mono&quot;, monospace;
+                color: #22c55e;
+              "
+              id="statHigh"
+            >
+              98,200
+            </div>
+          </div>
+          <div
+            style="padding: 14px 12px; border-right: 1px solid var(--border)"
+          >
+            <div
+              style="
+                font-size: 10px;
+                color: var(--muted);
+                margin-bottom: 4px;
+                font-weight: 500;
+              "
+            >
+              LOW
+            </div>
+            <div
+              style="
+                font-size: 13px;
+                font-weight: 700;
+                font-family: &quot;Space Mono&quot;, monospace;
+                color: #ef4444;
+              "
+              id="statLow"
+            >
+              94,810
+            </div>
+          </div>
+          <div style="padding: 14px 12px">
+            <div
+              style="
+                font-size: 10px;
+                color: var(--muted);
+                margin-bottom: 4px;
+                font-weight: 500;
+              "
+            >
+              VOL
+            </div>
+            <div
+              style="
+                font-size: 13px;
+                font-weight: 700;
+                font-family: &quot;Space Mono&quot;, monospace;
+              "
+              id="statVol"
+            >
+              28.4B
+            </div>
+          </div>
+        </div>
+
+        <!-- COIN LIST WITH SPARKLINES -->
+        <div style="padding: 16px 20px 0">
+          <div style="font-size: 14px; font-weight: 600; margin-bottom: 12px">
+            All Markets
+          </div>
+          <div
+            id="marketList"
+            style="
+              display: flex;
+              flex-direction: column;
+              gap: 8px;
+              padding-bottom: 24px;
+            "
+          ></div>
+        </div>
+      </div>
+    </div>
+        <!-- ============================================================
+     WITHDRAW SCREEN
+============================================================ -->
+    <div class="screen" id="withdrawScreen">
+      <div class="topbar">
+        <div class="back-btn" onclick="go('homeScreen')">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#94a3b8"
+            stroke-width="2"
+          >
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </div>
+        <span class="page-title">Request Withdrawal</span>
+      </div>
+      <div class="scbody" id="withdrawBody"></div>
+    </div>
+       <!-- ============================================================
+     ACCOUNT SCREEN
+============================================================ -->
+    <div class="screen" id="accountScreen">
+      <div class="topbar">
+        <div class="back-btn" onclick="go('homeScreen')">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#94a3b8"
+            stroke-width="2"
+          >
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </div>
+        <span class="page-title">My Account</span>
+      </div>
+      <div class="scbody" style="padding-bottom: 40px">
+        <!-- PROFILE CARD -->
+        <div
+          style="
+            background: linear-gradient(135deg, #0d2137, #0a1628);
+            border: 1px solid #1e3a5f;
+            border-radius: 22px;
+            padding: 24px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+          "
+        >
+          <div
+            style="
+              position: absolute;
+              top: -30px;
+              right: -30px;
+              width: 120px;
+              height: 120px;
+              background: radial-gradient(
+                circle,
+                rgba(0, 212, 170, 0.1),
+                transparent 70%
+              );
+              pointer-events: none;
+            "
+          ></div>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 16px;
+              margin-bottom: 20px;
+            "
+          >
+            <div
+              style="
+                width: 62px;
+                height: 62px;
+                border-radius: 50%;
+                background: linear-gradient(
+                  135deg,
+                  var(--accent),
+                  var(--accent2)
+                );
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 24px;
+                font-weight: 700;
+                color: #0a0e1a;
+                flex-shrink: 0;
+              "
+              id="acAvatar"
+            >
+              U
+            </div>
+            <div style="flex: 1">
+              <div style="font-size: 17px; font-weight: 700" id="acName">
+                User
+              </div>
+              <div
+                style="font-size: 12px; color: var(--muted); margin-top: 2px"
+                id="acEmail"
+              >
+                user@example.com
+              </div>
+              <div
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 5px;
+                  margin-top: 6px;
+                  background: rgba(245, 158, 11, 0.1);
+                  border: 1px solid rgba(245, 158, 11, 0.2);
+                  border-radius: 6px;
+                  padding: 3px 8px;
+                "
+              >
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="#f59e0b">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+                <span
+                  style="
+                    font-size: 11px;
+                    font-weight: 600;
+                    color: var(--yellow);
+                  "
+                  id="acKycBadge"
+                  >Pending Verification</span
+                >
+              </div>
+            </div>
+            <div
+              onclick="goKYC()"
+              style="
+                width: 34px;
+                height: 34px;
+                border-radius: 10px;
+                background: rgba(0, 212, 170, 0.1);
+                border: 1px solid rgba(0, 212, 170, 0.2);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+              "
+            >
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#00d4aa"
+                stroke-width="2"
+              >
+                <path
+                  d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                />
+                <path
+                  d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                />
+              </svg>
+            </div>
+          </div>
+          <!-- INVESTMENT SUMMARY -->
+          <div
+            style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px"
+          >
+            <div
+              style="
+                background: rgba(255, 255, 255, 0.04);
+                border-radius: 12px;
+                padding: 12px 10px;
+                text-align: center;
+              "
+            >
+              <div
+                style="font-size: 11px; color: var(--muted); margin-bottom: 4px"
+              >
+                Balance
+              </div>
+              <div
+                style="
+                  font-size: 13px;
+                  font-weight: 700;
+                  font-family: &quot;Space Mono&quot;, monospace;
+                  color: var(--accent);
+                "
+                id="acBalance"
+              >
+                $1,000
+              </div>
+            </div>
+            <div
+              style="
+                background: rgba(255, 255, 255, 0.04);
+                border-radius: 12px;
+                padding: 12px 10px;
+                text-align: center;
+              "
+            >
+              <div
+                style="font-size: 11px; color: var(--muted); margin-bottom: 4px"
+              >
+                Deposited
+              </div>
+              <div
+                style="
+                  font-size: 13px;
+                  font-weight: 700;
+                  font-family: &quot;Space Mono&quot;, monospace;
+                "
+                id="acDeposited"
+              >
+                $0
+              </div>
+            </div>
+            <div
+              style="
+                background: rgba(255, 255, 255, 0.04);
+                border-radius: 12px;
+                padding: 12px 10px;
+                text-align: center;
+              "
+            >
+              <div
+                style="font-size: 11px; color: var(--muted); margin-bottom: 4px"
+              >
+                Total Earned
+              </div>
+              <div
+                style="
+                  font-size: 13px;
+                  font-weight: 700;
+                  font-family: &quot;Space Mono&quot;, monospace;
+                  color: #22c55e;
+                "
+                id="acEarned"
+              >
+                $0
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- KYC STATUS -->
+        <div
+          style="
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--muted);
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            padding-left: 4px;
+          "
+        >
+          VERIFICATION
+        </div>
+        <div
+          style="
+            background: var(--card);
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 20px;
+          "
+        >
+          <div
+            onclick="goKYC()"
+            style="
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              padding: 15px 16px;
+              cursor: pointer;
+              border-bottom: 1px solid var(--border);
+            "
+          >
+            <div
+              style="
+                width: 38px;
+                height: 38px;
+                border-radius: 11px;
+                background: rgba(245, 158, 11, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+              "
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#f59e0b"
+                stroke-width="1.5"
+              >
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <circle cx="8.5" cy="8.5" r="1.5" />
+                <polyline points="21 15 16 10 5 21" />
+              </svg>
+            </div>
+            <div style="flex: 1">
+              <div style="font-size: 14px; font-weight: 600">
+                Identity Verification (KYC)
+              </div>
+              <div
+                style="font-size: 12px; color: var(--yellow); margin-top: 2px"
+              >
+                Tap to complete verification
+              </div>
+            </div>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#64748b"
+              stroke-width="2"
+            >
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </div>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              padding: 15px 16px;
+            "
+          >
+            <div
+              style="
+                width: 38px;
+                height: 38px;
+                border-radius: 11px;
+                background: rgba(59, 130, 246, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+              "
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#3b82f6"
+                stroke-width="1.5"
+              >
+                <rect x="5" y="2" width="14" height="20" rx="2" />
+                <line x1="12" y1="18" x2="12.01" y2="18" />
+              </svg>
+            </div>
+            <div style="flex: 1">
+              <div style="font-size: 14px; font-weight: 600">
+                Two-Factor Authentication
+              </div>
+              <div
+                style="font-size: 12px; color: var(--muted); margin-top: 2px"
+              >
+                Protect your account with 2FA
+              </div>
+            </div>
+            <div
+              style="
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 20px;
+                padding: 4px 12px;
+                font-size: 12px;
+                font-weight: 600;
+                color: var(--muted);
+                cursor: pointer;
+              "
+              id="tfa-toggle"
+              onclick="toggle2FA(this)"
+            >
+              Off
+            </div>
+          </div>
+        </div>
+
+        <!-- TRANSACTION HISTORY -->
+        <div
+          style="
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--muted);
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            padding-left: 4px;
+          "
+        >
+          TRANSACTION HISTORY
+        </div>
+        <div
+          style="
+            background: var(--card);
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            margin-bottom: 20px;
+            overflow: hidden;
+          "
+          id="txList"
+        >
+          <div
+            style="
+              padding: 20px;
+              text-align: center;
+              color: var(--muted);
+              font-size: 13px;
+            "
+          >
+            No transactions yet
+          </div>
+        </div>
+
+        <!-- REFERRAL -->
+        <div
+          style="
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--muted);
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            padding-left: 4px;
+          "
+        >
+          REFERRAL PROGRAM
+        </div>
+        <div
+          style="
+            background: var(--card);
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 20px;
+          "
+        >
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 10px;
+              margin-bottom: 14px;
+            "
+          >
+            <div
+              style="
+                width: 38px;
+                height: 38px;
+                border-radius: 11px;
+                background: rgba(0, 212, 170, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+              "
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#00d4aa"
+                stroke-width="1.5"
+              >
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+            </div>
+            <div>
+              <div style="font-size: 14px; font-weight: 600">
+                Invite &amp; Earn
+              </div>
+              <div
+                style="font-size: 12px; color: var(--muted); margin-top: 2px"
+              >
+                Earn 5% of every deposit your referral makes
+              </div>
+            </div>
+          </div>
+          <div
+            style="
+              background: var(--surface);
+              border: 1px solid var(--border);
+              border-radius: 11px;
+              padding: 11px 13px;
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              margin-bottom: 12px;
+            "
+          >
+            <span
+              style="
+                font-family: &quot;Space Mono&quot;, monospace;
+                font-size: 12px;
+                flex: 1;
+                color: var(--accent);
+              "
+              id="refCode"
+              >NEXV-XXXXXX</span
+            >
+            <button
+              onclick="copyRef()"
+              style="
+                background: rgba(0, 212, 170, 0.1);
+                border: 1px solid rgba(0, 212, 170, 0.25);
+                border-radius: 8px;
+                padding: 6px 11px;
+                font-size: 12px;
+                font-weight: 600;
+                color: var(--accent);
+                cursor: pointer;
+                font-family: &quot;DM Sans&quot;, sans-serif;
+              "
+              id="refCopyBtn"
+            >
+              Copy
+            </button>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px">
+            <div
+              style="
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                padding: 12px;
+                text-align: center;
+              "
+            >
+              <div
+                style="font-size: 11px; color: var(--muted); margin-bottom: 4px"
+              >
+                Total Referrals
+              </div>
+              <div style="font-size: 18px; font-weight: 700">0</div>
+            </div>
+            <div
+              style="
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                padding: 12px;
+                text-align: center;
+              "
+            >
+              <div
+                style="font-size: 11px; color: var(--muted); margin-bottom: 4px"
+              >
+                Referral Earnings
+              </div>
+              <div
+                style="font-size: 18px; font-weight: 700; color: var(--accent)"
+              >
+                $0
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SETTINGS -->
+        <div
+          style="
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--muted);
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            padding-left: 4px;
+          "
+        >
+          SETTINGS
+        </div>
+        <div
+          style="
+            background: var(--card);
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 20px;
+          "
+        >
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              padding: 15px 16px;
+              cursor: pointer;
+              border-bottom: 1px solid var(--border);
+            "
+            onclick="openChangePass()"
+          >
+            <div
+              style="
+                width: 38px;
+                height: 38px;
+                border-radius: 11px;
+                background: rgba(59, 130, 246, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+              "
+            >
+              <svg
+                width="17"
+                height="17"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#3b82f6"
+                stroke-width="1.5"
+              >
+                <rect x="3" y="11" width="18" height="11" rx="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
+            </div>
+            <div style="flex: 1">
+              <div style="font-size: 14px; font-weight: 600">
+                Change Password
+              </div>
+              <div
+                style="font-size: 12px; color: var(--muted); margin-top: 2px"
+              >
+                Update your login password
+              </div>
+            </div>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#64748b"
+              stroke-width="2"
+            >
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </div>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              padding: 15px 16px;
+              cursor: pointer;
+              border-bottom: 1px solid var(--border);
+            "
+          >
+            <div
+              style="
+                width: 38px;
+                height: 38px;
+                border-radius: 11px;
+                background: rgba(153, 69, 255, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+              "
+            >
+              <svg
+                width="17"
+                height="17"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#9945ff"
+                stroke-width="1.5"
+              >
+                <circle cx="12" cy="12" r="3" />
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+                <path d="M4.93 4.93a10 10 0 0 0 0 14.14" />
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                <path d="M8.46 8.46a5 5 0 0 0 0 7.07" />
+              </svg>
+            </div>
+            <div style="flex: 1">
+              <div style="font-size: 14px; font-weight: 600">Notifications</div>
+              <div
+                style="font-size: 12px; color: var(--muted); margin-top: 2px"
+              >
+                Manage alerts and updates
+              </div>
+            </div>
+            <div
+              style="
+                background: rgba(0, 212, 170, 0.1);
+                border: 1px solid rgba(0, 212, 170, 0.2);
+                border-radius: 20px;
+                padding: 4px 12px;
+                font-size: 12px;
+                font-weight: 600;
+                color: var(--accent);
+              "
+            >
+              On
+            </div>
+          </div>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              padding: 15px 16px;
+              cursor: pointer;
+            "
+            onclick="openChat()"
+          >
+            <div
+              style="
+                width: 38px;
+                height: 38px;
+                border-radius: 11px;
+                background: rgba(0, 212, 170, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+              "
+            >
+              <svg
+                width="17"
+                height="17"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#00d4aa"
+                stroke-width="1.5"
+              >
+                <path
+                  d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                />
+              </svg>
+            </div>
+            <div style="flex: 1">
+              <div style="font-size: 14px; font-weight: 600">
+                Customer Support
+              </div>
+              <div
+                style="font-size: 12px; color: var(--muted); margin-top: 2px"
+              >
+                Chat with our support team
+              </div>
+            </div>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#64748b"
+              stroke-width="2"
+            >
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- CHANGE PASSWORD FORM (hidden by default) -->
+        <div
+          id="changePwForm"
+          style="
+            display: none;
+            background: var(--card);
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 20px;
+          "
+        >
+          <div style="font-size: 14px; font-weight: 700; margin-bottom: 14px">
+            Change Password
+          </div>
+          <div class="field">
+            <label class="flabel">Current password</label>
+            <div class="fwrap">
+              <svg
+                class="ficon"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#64748b"
+                stroke-width="1.5"
+              >
+                <rect x="3" y="11" width="18" height="11" rx="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg
+              ><input
+                class="finput"
+                id="pwCurrent"
+                type="password"
+                placeholder="Enter current password"
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label class="flabel">New password</label>
+            <div class="fwrap">
+              <svg
+                class="ficon"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#64748b"
+                stroke-width="1.5"
+              >
+                <rect x="3" y="11" width="18" height="11" rx="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg
+              ><input
+                class="finput"
+                id="pwNew"
+                type="password"
+                placeholder="Enter new password"
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label class="flabel">Confirm new password</label>
+            <div class="fwrap">
+              <svg
+                class="ficon"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#64748b"
+                stroke-width="1.5"
+              >
+                <rect x="3" y="11" width="18" height="11" rx="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg
+              ><input
+                class="finput"
+                id="pwConfirm"
+                type="password"
+                placeholder="Confirm new password"
+              />
+            </div>
+          </div>
+          <div style="display: flex; gap: 10px">
+            <button
+              class="gbtn"
+              style="margin-bottom: 0; flex: 1"
+              onclick="closeChangePass()"
+            >
+              Cancel
+            </button>
+            <button
+              class="pbtn"
+              style="margin-bottom: 0; flex: 2"
+              onclick="submitChangePass()"
+            >
+              Update Password
+            </button>
+          </div>
+        </div>
+
+        <!-- DANGER ZONE -->
+        <div
+          style="
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--muted);
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            padding-left: 4px;
+          "
+        >
+          ACCOUNT
+        </div>
+        <div
+          style="
+            background: var(--card);
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 8px;
+          "
+        >
+          <div
+            onclick="doLogout()"
+            style="
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              padding: 15px 16px;
+              cursor: pointer;
+              border-bottom: 1px solid var(--border);
+            "
+          >
+            <div
+              style="
+                width: 38px;
+                height: 38px;
+                border-radius: 11px;
+                background: rgba(239, 68, 68, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+              "
+            >
+              <svg
+                width="17"
+                height="17"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#ef4444"
+                stroke-width="1.5"
+              >
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                <polyline points="16 17 21 12 16 7" />
+                <line x1="21" y1="12" x2="9" y2="12" />
+              </svg>
+            </div>
+            <div style="flex: 1">
+              <div style="font-size: 14px; font-weight: 600; color: var(--red)">
+                Sign Out
+              </div>
+              <div
+                style="font-size: 12px; color: var(--muted); margin-top: 2px"
+              >
+                Log out of your NexVault account
+              </div>
+            </div>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#64748b"
+              stroke-width="2"
+            >
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </div>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              padding: 15px 16px;
+              cursor: pointer;
+            "
+          >
+            <div
+              style="
+                width: 38px;
+                height: 38px;
+                border-radius: 11px;
+                background: rgba(239, 68, 68, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+              "
+            >
+              <svg
+                width="17"
+                height="17"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#ef4444"
+                stroke-width="1.5"
+              >
+                <polyline points="3 6 5 6 21 6" />
+                <path d="M19 6l-1 14H6L5 6" />
+                <path d="M10 11v6" />
+                <path d="M14 11v6" />
+                <path d="M9 6V4h6v2" />
+              </svg>
+            </div>
+            <div style="flex: 1">
+              <div style="font-size: 14px; font-weight: 600; color: var(--red)">
+                Delete Account
+              </div>
+              <div
+                style="font-size: 12px; color: var(--muted); margin-top: 2px"
+              >
+                Permanently remove your account
+              </div>
+            </div>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#64748b"
+              stroke-width="2"
+            >
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </div>
+        </div>
+
+        <div
+          style="
+            text-align: center;
+            padding: 16px 0;
+            font-size: 11px;
+            color: var(--muted);
+          "
+        >
+          NexVault v1.0 &nbsp;·&nbsp; &copy; 2025 All rights reserved
+        </div>
+      </div>
+    </div>
+    <script src="linked.js"></script>
+</body>
+</html>

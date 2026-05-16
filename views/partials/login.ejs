@@ -1,0 +1,112 @@
+<div class="scbody">
+    <!-- ================= SIGN IN FORM ================= -->
+    <% if (typeof error !== 'undefined' && error) { %>
+        <p style="color:red; text-align:center;"><%= error %></p><br>
+    <% } %>
+    <form id="siForm" method="POST" action="/login">
+        <div class="field">
+            <label class="flabel">Email address</label>
+            <div class="fwrap">
+                <svg class="ficon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="1.5">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6" />
+                </svg>
+                <input name="email" class="finput" id="siEmail" type="email" placeholder="you@example.com" />
+            </div>
+            <div class="ferror" id="siEmailErr">
+                Please enter a valid email
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="flabel">Password</label>
+
+            <div class="fwrap">
+                <svg class="ficon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="1.5">
+                    <rect x="3" y="11" width="18" height="11" rx="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
+
+                <input class="finput" id="siPass" type="password" name="password" placeholder="Enter your password"/>
+
+                <span class="eyebtn" onclick="toggleEye('siPass')">
+                    <svg width="16" height="16" viewBox="0 0 24 24"
+                        fill="none" stroke="#64748b" stroke-width="1.5">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                        <circle cx="12" cy="12" r="3" />
+                    </svg>
+                </span>
+            </div>
+
+            <div class="ferror" id="siPassErr">
+                Please enter your password
+            </div>
+        </div>
+
+        <span class="forgot" onclick="showForgot()">
+            Forgot password?
+        </span>
+
+        <button class="pbtn" onclick="doSignIn()">
+            Sign in to NexVault
+        </button>
+
+        <div class="securenote">
+            🔒 Protected by 256-bit SSL encryption
+        </div>
+
+    </form>
+
+    <!-- ================= SIGN UP FORM ================= -->
+    <div id="registerBox">
+        <%- include("./register") %>
+    </div>
+
+    <!-- ================= FORGOT PASSWORD FORM ================= -->
+    <div id="fgForm" style="display: none">
+
+        <div style="margin-bottom: 18px">
+            <div style="font-size: 15px; font-weight: 600; margin-bottom: 6px">
+                Reset your password
+            </div>
+
+            <div style="font-size: 13px; color: var(--muted); line-height: 1.7">
+                Enter your email and we'll send you a secure reset link.
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="flabel">Email address</label>
+
+            <div class="fwrap">
+                <svg class="ficon" width="16" height="16" viewBox="0 0 24 24"
+                    fill="none" stroke="#64748b" stroke-width="1.5">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6" />
+                </svg>
+
+                <input
+                    class="finput"
+                    id="fgEmail"
+                    type="email"
+                    placeholder="you@example.com"
+                />
+            </div>
+        </div>
+
+        <button class="pbtn" onclick="doForgot()">
+            Send reset link
+        </button>
+
+        <div style="text-align: center; margin-bottom: 24px">
+            <span
+                style="font-size: 13px; color: var(--accent2); cursor: pointer; font-weight: 500;"
+                onclick="showSI()"
+            >
+                ← Back to sign in
+            </span>
+        </div>
+
+    </div>
+
+</div>

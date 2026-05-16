@@ -1,0 +1,328 @@
+<form method="post" action="/register" id="suForm" style="display: none">
+    <div id="error_of_pas" style="color: red; text-align: center;"></div><br>
+    <div class="nrow">
+    <div class="field">
+        <label class="flabel">First name</label>
+        <div class="fwrap">
+        <input
+            name="firstname"
+            class="finput noi"
+            id="suFirst"
+            type="text"
+            placeholder="John"
+            oninput="valSU()"
+        />
+        </div>
+    </div>
+    <div class="field">
+        <label class="flabel">Last name</label>
+        <div class="fwrap">
+        <input
+            name="lastname"
+            class="finput noi"
+            id="suLast"
+            type="text"
+            placeholder="Doe"
+            oninput="valSU()"
+        />
+        </div>
+    </div>
+    </div>
+    <div class="field">
+    <label class="flabel">Email address</label>
+    <div class="fwrap">
+        <svg
+        class="ficon"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#64748b"
+        stroke-width="1.5"
+        >
+        <path
+            d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+        />
+        <polyline points="22,6 12,13 2,6" />
+        </svg>
+        <input
+        name="email"
+        class="finput"
+        id="suEmail"
+        type="email"
+        placeholder="you@example.com"
+        oninput="valSU()"
+        />
+    </div>
+    <div class="ferror" id="suEmailErr">Please enter a valid email</div>
+    </div>
+    <div class="field">
+    <label class="flabel">Phone number</label>
+    <div class="fwrap">
+        <svg
+        class="ficon"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#64748b"
+        stroke-width="1.5"
+        >
+        <path
+            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16z"
+        />
+        </svg>
+        <input
+        name="phonenumber"
+        class="finput"
+        id="suPhone"
+        type="tel"
+        placeholder="+1 555 000 0000"
+        oninput="valSU()"
+        />
+    </div>
+    </div>
+    <div class="field">
+    <label class="flabel">Country of residence</label>
+    <div class="fwrap">
+        <svg
+        class="ficon"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#64748b"
+        stroke-width="1.5"
+        >
+        <circle cx="12" cy="12" r="10" />
+        <line x1="2" y1="12" x2="22" y2="12" />
+        <path
+            d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+        />
+        </svg>
+        <select name="country" class="fselect" id="suCountry" onchange="valSU()">
+        <option value="" disabled selected>Select your country</option>
+        <option value="Afghanistan">Afghanistan</option>
+        <option value="Albania">Albania</option>
+        <option value="Algeria">Algeria</option>
+        <option value="Angola">Angola</option>
+        <option value="Argentina">Argentina</option>
+        <option value="Australia">Australia</option>
+        <option value="Austria">Austria</option>
+        <option value="Azerbaijan">Azerbaijan</option>
+        <option value="Bahrain">Bahrain</option>
+        <option value="Bangladesh">Bangladesh</option>
+        <option value="Belgium">Belgium</option>
+        <option value="Bolivia">Bolivia</option>
+        <option value="Brazil">Brazil</option>
+        <option value="Bulgaria">Bulgaria</option>
+        <option value="Cambodia">Cambodia</option>
+        <option value="Cameroon">Cameroon</option>
+        <option value="Canada">Canada</option>
+        <option value="Chile">Chile</option>
+        <option value="China">China</option>
+        <option value="Colombia">Colombia</option>
+        <option value="Congo">Congo</option>
+        <option value="Costa Rica">Costa Rica</option>
+        <option value="Croatia">Croatia</option>
+        <option value="Cyprus">Cyprus</option>
+        <option value="Czech Republic">Czech Republic</option>
+        <option value="Denmark">Denmark</option>
+        <option value="Dominican Republic">Dominican Republic</option>
+        <option value="Ecuador">Ecuador</option>
+        <option value="Egypt">Egypt</option>
+        <option value="Ethiopia">Ethiopia</option>
+        <option value="Finland">Finland</option>
+        <option value="France">France</option>
+        <option value="Georgia">Georgia</option>
+        <option value="Germany">Germany</option>
+        <option value="Ghana">Ghana</option>
+        <option value="Greece">Greece</option>
+        <option value="Guatemala">Guatemala</option>
+        <option value="Honduras">Honduras</option>
+        <option value="Hungary">Hungary</option>
+        <option value="India">India</option>
+        <option value="Indonesia">Indonesia</option>
+        <option value="Iran">Iran</option>
+        <option value="Iraq">Iraq</option>
+        <option value="Ireland">Ireland</option>
+        <option value="Israel">Israel</option>
+        <option value="Italy">Italy</option>
+        <option value="Ivory Coast">Ivory Coast</option>
+        <option value="Jamaica">Jamaica</option>
+        <option value="Japan">Japan</option>
+        <option value="Jordan">Jordan</option>
+        <option value="Kazakhstan">Kazakhstan</option>
+        <option value="Kenya">Kenya</option>
+        <option value="Kuwait">Kuwait</option>
+        <option value="Lebanon">Lebanon</option>
+        <option value="Libya">Libya</option>
+        <option value="Lithuania">Lithuania</option>
+        <option value="Malaysia">Malaysia</option>
+        <option value="Mexico">Mexico</option>
+        <option value="Morocco">Morocco</option>
+        <option value="Mozambique">Mozambique</option>
+        <option value="Nepal">Nepal</option>
+        <option value="Netherlands">Netherlands</option>
+        <option value="New Zealand">New Zealand</option>
+        <option value="Nicaragua">Nicaragua</option>
+        <option value="Nigeria">Nigeria</option>
+        <option value="Norway">Norway</option>
+        <option value="Oman">Oman</option>
+        <option value="Pakistan">Pakistan</option>
+        <option value="Panama">Panama</option>
+        <option value="Paraguay">Paraguay</option>
+        <option value="Peru">Peru</option>
+        <option value="Philippines">Philippines</option>
+        <option value="Poland">Poland</option>
+        <option value="Portugal">Portugal</option>
+        <option value="Qatar">Qatar</option>
+        <option value="Romania">Romania</option>
+        <option value="Russia">Russia</option>
+        <option value="Rwanda">Rwanda</option>
+        <option value="Saudi Arabia">Saudi Arabia</option>
+        <option value="Senegal">Senegal</option>
+        <option value="Serbia">Serbia</option>
+        <option value="Singapore">Singapore</option>
+        <option value="Slovakia">Slovakia</option>
+        <option value="South Africa">South Africa</option>
+        <option value="South Korea">South Korea</option>
+        <option value="Spain">Spain</option>
+        <option value="Sri Lanka">Sri Lanka</option>
+        <option value="Sudan">Sudan</option>
+        <option value="Sweden">Sweden</option>
+        <option value="Switzerland">Switzerland</option>
+        <option value="Tanzania">Tanzania</option>
+        <option value="Thailand">Thailand</option>
+        <option value="Tunisia">Tunisia</option>
+        <option value="Turkey">Turkey</option>
+        <option value="Uganda">Uganda</option>
+        <option value="Ukraine">Ukraine</option>
+        <option value="United Arab Emirates">United Arab Emirates</option>
+        <option value="United Kingdom">United Kingdom</option>
+        <option value="United States">United States</option>
+        <option value="Uruguay">Uruguay</option>
+        <option value="Uzbekistan">Uzbekistan</option>
+        <option value="Venezuela">Venezuela</option>
+        <option value="Vietnam">Vietnam</option>
+        <option value="Yemen">Yemen</option>
+        <option value="Zambia">Zambia</option>
+        <option value="Zimbabwe">Zimbabwe</option>
+        </select>
+        <svg
+        class="sarrow"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#64748b"
+        stroke-width="2"
+        >
+        <polyline points="6 9 12 15 18 9" />
+        </svg>
+    </div>
+    </div>
+    <div class="field">
+    <label class="flabel">Password</label>
+    <div class="fwrap">
+        <svg
+        class="ficon"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#64748b"
+        stroke-width="1.5"
+        >
+        <rect x="3" y="11" width="18" height="11" rx="2" />
+        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+        </svg>
+        <input
+        name="password1"
+        class="finput"
+        id="suPass"
+        type="password"
+        placeholder="Create a strong password"
+        oninput="
+            chkStr();
+            valSU();
+        "
+        />
+        <span class="eyebtn" onclick="toggleEye('suPass')"
+        ><svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#64748b"
+            stroke-width="1.5"
+        >
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+            <circle cx="12" cy="12" r="3" /></svg
+        ></span>
+    </div>
+    <div class="strbar">
+        <div class="sb" id="sb1"></div>
+        <div class="sb" id="sb2"></div>
+        <div class="sb" id="sb3"></div>
+        <div class="sb" id="sb4"></div>
+    </div>
+    <div class="strlbl" id="strLbl" style="color: var(--muted)"></div>
+    </div>
+    <div class="field">
+    <label class="flabel">Confirm password</label>
+    <div class="fwrap">
+        <svg
+        class="ficon"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#64748b"
+        stroke-width="1.5"
+        >
+        <rect x="3" y="11" width="18" height="11" rx="2" />
+        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+        </svg>
+        <input
+        name="password2"
+        class="finput"
+        id="suConfirm"
+        type="password"
+        placeholder="Re-enter password"
+        oninput="valSU()"
+        />
+    </div>
+    <div class="ferror" id="suConfirmErr">Passwords do not match</div>
+    </div>
+    <div class="consentbox">
+    <label class="crow">
+        <input
+        type="checkbox"
+        id="chkTerms"
+        onchange="valSU()"
+        style="margin-top: 3px; accent-color: #00d4aa; flex-shrink: 0"
+        />
+        <span class="ctxt"
+        >I agree to NexVault's <a href="#">Terms of Service</a> and
+        <a href="#">Privacy Policy</a></span
+        >
+    </label>
+    <label class="crow">
+        <input
+        type="checkbox"
+        id="chkAge"
+        onchange="valSU()"
+        style="margin-top: 3px; accent-color: #00d4aa; flex-shrink: 0"
+        />
+        <span class="ctxt">I confirm I am 18 years or older</span>
+    </label>
+    </div>
+    <button type="submit" class="pbtn" id="suBtn" disabled>
+    Create my account
+    </button>
+    <div class="securenote">
+    🔒 Your data is encrypted and never shared
+    </div>
+</form>
+<script src="/reg.js"></script>
